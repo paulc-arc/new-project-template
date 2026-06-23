@@ -1,15 +1,15 @@
-<!-- managed-by: hamanpaul/paulsha-conventions@v1.0.6 -->
+<!-- managed-by: hamanpaul/paulsha-conventions@v1.0.7 -->
 <!-- 此為 canonical 真檔；AGENTS.md / GEMINI.md / .github/copilot-instructions.md 為指向本檔的 symlink，只維護本檔 -->
-policy_version: 1.0.6
+policy_version: 1.0.7
 
 # Agent Policy Checklist
 
-本 repo 受 hamanpaul project policy v1.0.6 管轄。
+本 repo 受 hamanpaul project policy v1.0.7 管轄。
 所有 agent 進入 session 時，必須依下列 checklist 行動。
 
 ## 本 repo 的 profile
 - policy_profile: `flat` （見 `.paul-project.yml`）
-- policy_version: `1.0.6`
+- policy_version: `1.0.7`
 
 ## 動工前
 - [ ] 確認當前分支不是 `main`
@@ -96,3 +96,10 @@ policy_version: 1.0.6
 - **`.paul-project.yml` 新增**：`agent_files.mode`（`copy` / `symlink`）、`conventions_engine.repo`（`owner/repo`，空字串為 NA sentinel）。
 - **Exemption 白名單新增**：`policy-exempt:engine-pin`（R-23）。
 - **禁止新增**：把 agent symlink 還原成獨立複本（`agent_files.mode: symlink` 下 R-14 會 FAIL）。
+
+## v1.0.7 新增規則（MOC 對齊）
+> 本段於 policy 1.0.7 隨 R-24 新增。
+
+- **R-24（moc-alignment，opt-in，FAIL/WARN）**：repo 於 `.paul-project.yml` 宣告 `moc`（`static` / `map` / `triggers`）後生效（未宣告 → not-applicable）。三瓣：靜態鮮度（`moc.triggers` 命中但 `moc.static` 未同步 → WARN）／動態連結懸空（`moc.map` 連到不存在的受治理產物 `openspec/changes/**`・`docs/superpowers/{specs,plans}/**`，本次新破壞 FAIL、陳年 WARN）／動態連結孤兒（active openspec change・plan・spec 未被連結 → WARN，永不 FAIL）。內容跟著專案走（留各專案 repo），引擎只出規則；platform-agnostic（純 git-level，不依賴 GitHub/GitLab）。
+- **MOC 狀態語意對齊（advisory）**：`moc.map` 上某 stage 宣稱 done 是否真 done、被 postpone 的 stage 是否還誤掛 done，屬語意層，由 Copilot reviewer 留言提醒，不入確定性規則。
+- **Exemption 白名單新增**：`policy-exempt:moc-alignment`（R-24）。
