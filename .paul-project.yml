@@ -1,5 +1,5 @@
 policy_profile: flat
-policy_version: 1.0.2
+policy_version: 1.0.6
 code_paths:
   - ".paul-project.yml"
   - "VERSION"
@@ -7,3 +7,7 @@ code_paths:
   - "**/*.yml"
   - "**/*.yaml"
   - ".github/**"
+agent_files:
+  mode: symlink
+conventions_engine:
+  repo: hamanpaul/paulsha-conventions
